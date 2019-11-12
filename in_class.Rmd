@@ -1,0 +1,25 @@
+---
+title: "in_class"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("tidyverse")
+dat_test = read_csv('test_data.csv') %>%
+  mutate(label = as.factor(label))
+```
+
+
+```{r}
+model_nn = readRDS('./model_nn.rds')
+```
+
+```{r}
+predictions = predict(model_nn, dat_test)
+```
+
+```{r}
+caret::confusionMatrix(predictions, dat_test$label)
+```
+
